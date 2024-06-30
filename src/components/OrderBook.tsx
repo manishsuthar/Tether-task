@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import WebSocketService from "../sevices/WebSocketService";
-import { selectOrderBook } from "../store/slice/orderBookSlice";
-import { selectPrecision } from "../store/slice/precisionSlice";
-import {
-  selectIsConnected,
-  setConnected,
-  setDisconnected,
-} from "../store/slice/websocketSlice";
 import Toggle from "./Toggle";
+import { selectOrderBook } from "../store/reducer/orderBookReducer";
+import { selectPrecision } from "../store/reducer/precisionReducer";
+import { selectIsConnected, setConnected, setDisconnected } from "../store/reducer/websocketReducer";
 
 const OrderBook: React.FC = () => {
   const orderBook = useSelector(selectOrderBook);

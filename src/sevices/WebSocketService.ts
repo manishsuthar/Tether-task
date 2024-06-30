@@ -108,10 +108,9 @@ class WebSocketService {
         newPrecision = 'P0';
         break;
       default:
-        return; // Already at highest precision
+        return;
     }
 
-    // Unsubscribe current and subscribe new
     this.unsubscribeFromOrderBook();
     this.precision = newPrecision;
     this.connect(newPrecision as Precision);
@@ -133,10 +132,9 @@ class WebSocketService {
         newPrecision = 'P4';
         break;
       default:
-        return; // Already at lowest precision
+        return; 
     }
 
-    // Unsubscribe current and subscribe new
     this.unsubscribeFromOrderBook();
     this.precision = newPrecision;
     this.connect(newPrecision as Precision);

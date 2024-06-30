@@ -1,23 +1,35 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const SET_ORDER_BOOK_DATA = 'orderBook/setOrderBookData';
+export type OrderBookEntry = {
+  count: number;
+  amount: number;
+  total: number;
+  price: number;
+};
 
-const initialState = {
+export interface OrderBookState {
+  bids: OrderBookEntry[];
+  asks: OrderBookEntry[];
+}
+
+const initialState: OrderBookState = {
   bids: [],
   asks: [],
 };
 
-// Reducer Function
-const orderBookReducer = (state = initialState, action:any) => {
-  switch (action.type) {
-    case SET_ORDER_BOOK_DATA:
-      return {
-        ...state,
-        bids: action.payload.bids,
-        asks: action.payload.asks,
-      };
-    default:
-      return state;
-  }
-};
+const orderBookSlice = createSlice({
+  name: 'orderBook',
+  initialState,
+  reducers: {
+    setOrderBookData: (state, action: PayloadAction<OrderBookState>) => {
+      state.bids = action.payload.bids;
+      state.asks = action.payload.asks;
+    },
+  },
+});
 
-export default orderBookReducer;
+export const { setOrderBookData } = orderBookSlice.actions;
+
+export const selectOrderBook = (state: any) => state.orderBook;
+
+export default orderBookSlice.reducer;

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import orderBookReducer from '../store/slice/orderBookSlice';
-import websocketReducer from '../store/slice/websocketSlice';
-import precisionReducer from '../store/slice/precisionSlice';
+import orderBookReducer from './reducer/orderBookReducer';
+import websocketReducer from './reducer/websocketReducer';
+import precisionReducer from './reducer/precisionReducer';
 
 export const store = configureStore({
   reducer: {

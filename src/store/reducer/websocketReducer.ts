@@ -1,29 +1,29 @@
-export const SET_CONNECTED = 'websocket/setConnected';
-export const SET_DISCONNECTED = 'websocket/setDisconnected';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface WebsocketState {
-    isConnected: boolean;
+  isConnected: boolean;
 }
 
 const initialState: WebsocketState = {
   isConnected: false,
 };
 
-const websocketReducer = (state = initialState, action:any) => {
-  switch (action.type) {
-    case SET_CONNECTED:
-      return {
-        ...state,
-        isConnected: true,
-      };
-    case SET_DISCONNECTED:
-      return {
-        ...state,
-        isConnected: false,
-      };
-    default:
-      return state;
-  }
-};
+export const websocketSlice = createSlice({
+  name: 'websocket',
+  initialState,
+  reducers: {
+    setConnected: (state:any) => {
+      state.isConnected = true;
+    },
+    setDisconnected: (state:any) => {
+      state.isConnected = false;
+    },
+  },
+});
 
-export default websocketReducer;
+export const { setConnected, setDisconnected } = websocketSlice.actions;
+
+export const selectIsConnected = (state: any) =>
+  state.websocket.isConnected;
+
+export default websocketSlice.reducer;

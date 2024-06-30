@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
-import { OrderBookEntry, setOrderBookData } from '../store/slice/orderBookSlice';
 import { store } from '../store/store';
+import { OrderBookEntry, setOrderBookData } from '../store/reducer/orderBookReducer';
 
 type SnapshotEntry = [number, number, number];
 

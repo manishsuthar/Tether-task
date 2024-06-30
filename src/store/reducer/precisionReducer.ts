@@ -1,20 +1,25 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const SET_PRECISION = 'precision/setPrecision';
+interface PrecisionState {
+  precision: number;
+}
 
-const initialState = {
+const initialState: PrecisionState = {
   precision: 2,
 };
 
-const precisionReducer = (state = initialState, action:any) => {
-  switch (action.type) {
-    case SET_PRECISION:
-      return {
-        ...state,
-        precision: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+export const precisionSlice = createSlice({
+  name: 'precision',
+  initialState,
+  reducers: {
+    setPrecision: (state, action: PayloadAction<number>) => {
+      state.precision = action.payload;
+    },
+  },
+});
 
-export default precisionReducer;
+export const { setPrecision } = precisionSlice.actions;
+
+export const selectPrecision = (state: any) => state.precision.precision;
+
+export default precisionSlice.reducer;
