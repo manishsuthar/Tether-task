@@ -21,6 +21,7 @@ code {
   color: #fff;
   font-family: 'Open Sans', sans-serif;
   padding: 20px;
+  padding-bottom: 30px;
 }
 
 .table {
@@ -136,10 +137,13 @@ input:checked + .slider:before {
 
 .footer{
   position: fixed;
-  width: 100vw;
-  bottom: 0px;
-  left: 0px;
-  height: 40px;
+    width: 100vw;
+    bottom: 0px;
+    left: 0px;
+    height: 40px;
+    background-color: #1b262f;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .connect-button{
   margin: auto;
