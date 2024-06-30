@@ -157,3 +157,71 @@ input:checked + .slider:before {
   display: flex;
   align-items: center;
 }
+
+
+
+.order-book {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header {
+  background-color: #1b262f;
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #1b262f;
+}
+
+.row-1 {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #1b262f;
+  position: relative;
+  width: 50%;
+}
+
+.bar-right{
+  position: absolute;
+  background-color: red;
+  position: absolute;
+  height: 35px;
+  opacity: 0.2;
+  left: 0px;
+}
+
+.bar-left{
+  position: absolute;
+  height: 35px;
+  background-color: green;
+  opacity: 0.2;
+  right: 0px;
+}
+
+.row:first-of-type {
+  border-bottom: 2px solid #1b262f;
+}
+
+.cell {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.cell:nth-child(odd) {
+  background-color: #1b262f;
+}
+
+.cell:nth-child(even) {
+  background-color: #1b262f;
+}

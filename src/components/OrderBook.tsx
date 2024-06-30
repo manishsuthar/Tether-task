@@ -4,7 +4,11 @@ import WebSocketService from "../sevices/WebSocketService";
 import Toggle from "./Toggle";
 import { selectOrderBook } from "../store/reducer/orderBookReducer";
 import { selectPrecision } from "../store/reducer/precisionReducer";
-import { selectIsConnected, setConnected, setDisconnected } from "../store/reducer/websocketReducer";
+import {
+  selectIsConnected,
+  setConnected,
+  setDisconnected,
+} from "../store/reducer/websocketReducer";
 
 const OrderBook: React.FC = () => {
   const orderBook = useSelector(selectOrderBook);
@@ -33,6 +37,14 @@ const OrderBook: React.FC = () => {
     dispatch(setDisconnected());
   };
 
+  function calculatePercentage(amount:number, total:number) {
+    if (isNaN(amount) || isNaN(total) || total === 0) {
+      return `0%`;
+    }
+    let percentage = (Math.abs(amount) / total) * 100;
+    return percentage.toFixed(2) + "%";
+  }
+
   return (
     <div className="container">
       <div className="title-container">
@@ -43,46 +55,68 @@ const OrderBook: React.FC = () => {
         </div>
       </div>
 
-      <table className="table">
-        <thead className="table-header">
-          <tr>
-            <th colSpan={4}>Bids</th>
-            <th colSpan={4}>Asks</th>
-          </tr>
-          <tr>
-            <th className="table-column-header">COUNT</th>
-            <th className="table-column-header">AMOUNT</th>
-            <th className="table-column-header">TOTAL</th>
-            <th className="table-column-header">PRICE</th>
-            <th className="table-column-header">PRICE</th>
-            <th className="table-column-header">TOTAL</th>
-            <th className="table-column-header">AMOUNT</th>
-            <th className="table-column-header">COUNT</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orderBook.bids.map((bid: any, i: any) => (
-            <tr key={i}>
-              <td>{bid.count}</td>
-              <td>{bid.amount.toFixed(4)}</td>
-              <td>{bid.total.toFixed(4)}</td>
-              <td>{bid.price.toFixed(precision)}</td>
-              <td>
-                {orderBook.asks[i]
-                  ? orderBook.asks[i].price.toFixed(precision)
-                  : ""}
-              </td>
-              <td>
-                {orderBook.asks[i] ? orderBook.asks[i].total.toFixed(4) : ""}
-              </td>
-              <td>
-                {orderBook.asks[i] ? orderBook.asks[i].amount.toFixed(4) : ""}
-              </td>
-              <td>{orderBook.asks[i] ? orderBook.asks[i].count : ""}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="order-book">
+        <div className="table">
+          <div className="table-header">
+            {/* <div className="row">
+              <div className="cell" colSpan={4}>
+                Bids
+              </div>
+              <div className="cell" colSpan={4}>
+                Asks
+              </div>
+            </div> */}
+            <div className="row">
+              <div className="row-1">
+                <div className="cell">COUNT</div>
+                <div className="cell">AMOUNT</div>
+                <div className="cell">TOTAL</div>
+                <div className="cell">PRICE</div>
+              </div>
+              <div className="row-1">
+                <div className="cell">PRICE</div>
+                <div className="cell">TOTAL</div>
+                <div className="cell">AMOUNT</div>
+                <div className="cell">COUNT</div>
+              </div>
+            </div>
+          </div>
+          <div className="table-body">
+            {orderBook.bids.map((bid: any, i: any) => (
+              <div className="row" key={i}>
+                <div className="row-1">
+                  <div className="cell">{bid.count}</div>
+                  <div className="cell">{bid.amount.toFixed(4)}</div>
+                  <div className="cell">{bid.total.toFixed(4)}</div>
+                  <div className="cell">{bid.price.toFixed(precision)}</div>
+                  <div className="bar-left" style={{width:calculatePercentage(bid.amount,bid.total)}}/>
+                </div>
+                <div className="row-1">
+                  <div className="cell">
+                    {orderBook.asks[i]
+                      ? orderBook.asks[i].price.toFixed(precision)
+                      : ""}
+                  </div>
+                  <div className="cell">
+                    {orderBook.asks[i]
+                      ? orderBook.asks[i].total.toFixed(4)
+                      : ""}
+                  </div>
+                  <div className="cell">
+                    {orderBook.asks[i]
+                      ? orderBook.asks[i].amount.toFixed(4)
+                      : ""}
+                  </div>
+                  <div className="cell">
+                    {orderBook.asks[i] ? orderBook.asks[i].count : ""}
+                  </div>
+                  {orderBook.asks[i] && <div className="bar-right" style={{width:calculatePercentage(orderBook.asks[i].amount, orderBook.asks[i].total)}}/>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="footer">
         <div className="connect-button">
